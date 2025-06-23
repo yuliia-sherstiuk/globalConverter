@@ -1,5 +1,6 @@
 # Global Converter
 
+
 ## Introduction
 
 Gotta Convert 'Em All!' This project aims to create a Java application that allows users to translate messages into different numerical bases.
@@ -15,4 +16,5 @@ Gotta Convert 'Em All!' This project aims to create a Java application that allo
 - **Reversible Conversion**: Any conversion can be reversed, allowing for bidirectional translation.
 
 - **Encryption and Decryption**: The application incorporates a simple encryption algorithm, Caesar cipher. Users can specify the desired encryption key.
+
 
