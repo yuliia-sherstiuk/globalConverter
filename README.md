@@ -31,10 +31,44 @@ The following options are available to run the program:
 
 The project is organizes into several classes for better modularity and readability:
  - **Main**: The main class to run the application.
+ - **Menu**: The menu class to display the menu and user inputs
  - **Converter**: The class responsible for conversions between different bases.
  - **Validator**: The class for validating user inputs.
  - **Cipher**: The class for managing the encryption and decryption of strings.
 
+```
+globalConverter/
+│
+├── src/                        
+│   ├── main/                    
+│   │   ├── java/               
+│   │   │   ├── com/           
+│   │   │   │   ├── globalconverter/
+│   │   │   │   │   ├── Main.java  
+│   │   │   │   │   ├── Converter.java 
+│   │   │   │   │   ├── Validator.java
+│   │   │   │   │   ├── Cipher.java 
+│   │   │   │   │   └── Menu.java
+│   │   │   │
+│   │   │   └── resources/
+│   │   │       └── ...    
+│   │
+│   └── test/                   
+│       ├── java/              
+│       │   ├── com/           
+│       │   │   ├── example/     
+│       │   │   │   ├── ...
+│       │   │   │   ├── ...
+│       │   │   │   └── ...      
+│       │
+│       └── resources/          
+│
+├── lib/                        
+│
+├── README.md                   
+├── .gitignore                   
+└── pom.xml      
+```
 
 ## Skills Developed
 
