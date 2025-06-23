@@ -17,4 +17,16 @@ Gotta Convert 'Em All!' This project aims to create a Java application that allo
 
 - **Encryption and Decryption**: The application incorporates a simple encryption algorithm, Caesar cipher. Users can specify the desired encryption key.
 
+## Command Line Options
+
+The following options are available to run the program:
+
+- To convert to hexadecimal: '-h' or 'hexadecimal'
+- To convert to octal: '-o' or 'octal'
+- To convert to decimal: '-d' or 'decimal'
+- To convert to binary: '-b' or 'binary'
+- To convert to text: '-t' or 'text
+
+
+
 
