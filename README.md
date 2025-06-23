@@ -27,6 +27,22 @@ The following options are available to run the program:
 - To convert to binary: '-b' or 'binary'
 - To convert to text: '-t' or 'text
 
+## Project Structure
+
+The project is organizes into several classes for better modularity and readability:
+ - **Main**: The main class to run the application.
+ - **Converter**: The class responsible for conversions between different bases.
+ - **Validator**: The class for validating user inputs.
+ - **Cipher**: The class for managing the encryption and decryption of strings.
 
 
+## Skills Developed
 
+- Programming in Java.
+- Knowledge of numerical bases.
+- Understanding of encryption concepts.
+- Development of solutions.
+
+## Conclusion
+
+This project is an opportunity to practice programming skils and learn new techniques.
