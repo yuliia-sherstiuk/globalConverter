@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ConvertisseurDeBase {
+public class Menu  {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -94,7 +94,27 @@ public class ConvertisseurDeBase {
         scanner.close();
     }
 
-    
-    
+    // Method to ask yes/no question (returns true for 'o', false for 'n')
+    public static boolean choixOuiNon(Scanner scanner, String question) {
+        while (true) {
+            System.out.print(question + " ");
+            String reponse = scanner.nextLine().trim().toLowerCase();
+            if (reponse.equals("o")) return true;
+            if (reponse.equals("n")) return false;
+            System.out.println("Invalid input. Type 'o' for yes or 'n' for no.");
+        }
+    }
+
+    // Method to safely ask for an integer input
+    public static int demanderEntier(Scanner scanner, String question) {
+        while (true) {
+            try {
+                System.out.print(question);
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid integer number.");
+            }
+        }
+    }
 }
 
