@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 public class AsciiOctal {
 
+    /**
+     * translate ascii to octal. takes an arraylist from textToAscii
+     * @param asciiToTranslate ArrayList<Integer> see TextAscii
+     * @return String of octal values
+     */
     public String asciiToOctal(ArrayList<Integer>asciiToTranslate){
         ArrayList<String> result=new ArrayList<String>();
         for (Integer asciiValue: asciiToTranslate) {
@@ -24,6 +29,11 @@ public class AsciiOctal {
         return String.join(" ", result);
     }
 
+    /**
+     * translates octal to ascii
+     * @param octalToTranslate String of octal values delimited by spaces
+     * @return ArrayList<Integer> of ascii values
+     */
     public ArrayList<Integer> octalToAscii(String octalToTranslate) {
         String[] splitOctals = octalToTranslate.split(" ");
         ArrayList<Integer> result = new ArrayList<Integer>();
