@@ -62,30 +62,16 @@ public class TextAscii {
     }
 
     /**
-     * takes in a String of ascii values and returns text.
-     * @Warning MUST USE SPACE BETWEEN EACH ASCII CODE AND THE NEXT
+     * takes in an ArrayList of ascii values and returns text.
      * @param asciiValues
      * @return String of ascii to text translation
      */
-    public String asciiToText(String asciiValues){
-        String[] formattedInput=asciiValues.split(" ");
-        ArrayList<Integer> valueCodes=new ArrayList<Integer>();
-
-        for (String code: formattedInput){
-            valueCodes.add(Integer.parseInt(code));
+    public String asciiToText(ArrayList<Integer> asciiValues){
+        StringBuilder result = new StringBuilder();
+        for (Integer value : asciiValues){
+            result.append(reverseAsciiTable.get(value));
         }
-
-        ArrayList<Character>translation=new ArrayList<Character>();
-        for (Integer code: valueCodes){
-            translation.add(reverseAsciiTable.get(code));
-        }
-
-        ArrayList<String> translationResult=new ArrayList<String>();
-        for (Character c: translation){
-            translationResult.add(String.valueOf(c));
-        }
-
-        return String.join("", translationResult);
+        return result.toString();
     }
 
 
