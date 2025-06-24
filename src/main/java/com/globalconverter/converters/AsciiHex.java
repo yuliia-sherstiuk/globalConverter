@@ -3,6 +3,11 @@ import java.util.ArrayList;
 
 public class AsciiHex {
 
+    /**
+     * translate ascii to hex
+     * @param asciiToTranslate ArrayList of ascii values
+     * @return String of hex values
+     */
     public String asciiToHex(ArrayList<Integer> asciiToTranslate){
         ArrayList<String> result=new ArrayList<String>();
         for (Integer asciiValue: asciiToTranslate) {
@@ -28,6 +33,12 @@ public class AsciiHex {
         return String.join(" ", result);
     }
 
+
+    /**
+     * translates hex values to ascii
+     * @param hexToTranslate a String of hex values to translate
+     * @return ArrayList of ascii values
+     */
     public ArrayList<Integer> hexToAscii (String hexToTranslate){
         String[] hexValues=hexToTranslate.split(" ");
         ArrayList<Integer> result= new ArrayList<Integer>();
