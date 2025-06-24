@@ -87,6 +87,38 @@ public class Cipher {
         }
         return result.toString();
      }
+        //XOR CIPHER
+    /*
+     * Encrypt and Decrypt text with xor 
+     * Take param:
+     * text = text to encrypt
+     * key = key for xor operator
+     * return -> encrypt text or decrypt text
+     */
+
+     public static String xorCipher(String text, String key){
+        StringBuilder result = new StringBuilder();
+
+        for (int i = 0; i < text.length(); i++){
+            char textChar = text.charAt(i);
+            char keyChar = key.charAt( i % key.length());
+
+            int xored = 0;
+            int a = (int) textChar;
+            int b = (int) keyChar;
+
+            for (int bit = 0; bit < 16; bit++){
+                int bitA = (a >> bit) & 1;
+                int bitB = (b >> bit) & 1;
+
+                if (bitA != bitB) {
+                    xored |= (1 << bit);
+                }
+            }
+            result.append((char) xored);
+        }
+        return result.toString();
+     }
 
 
 }
