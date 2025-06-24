@@ -1,25 +1,27 @@
-public class Validator { 
+// Validator.java
 
-    // Vérifie que le choix du menu est bien "1" ou "2"
+public class Validator {
+
+    // Checks if the menu choice is either "1" or "2"
     public static boolean isValidMenuChoice(String input) {
         return input.equals("1") || input.equals("2");
     }
 
-    // Vérifie que la base choisie est valide
+    // Checks if the chosen base is valid
     public static boolean isValidBase(String input) {
-        return input.equals("-h") || input.equals("hexadecimal") ||
-               input.equals("-o") || input.equals("octal") ||
-               input.equals("-d") || input.equals("decimal") ||
+        return input.equals("h") || input.equals("hexadecimal") ||
+               input.equals("o") || input.equals("octal") ||
+               input.equals("d") || input.equals("decimal") ||
                input.equals("-b") || input.equals("binary") ||
                input.equals("-t") || input.equals("text");
     }
 
-    // Vérifie que la réponse est bien "y" ou "n"
+    // Checks if the response is either "y" or "n"
     public static boolean isYesNo(String input) {
         return input.equals("y") || input.equals("n");
     }
 
-    // Vérifie que la clé de substitution contient exactement 26 lettres uniques
+    // Checks if the substitution key contains exactly 26 unique letters
     public static boolean isValidSubstitutionKey(String key) {
         if (key.length() != 26) return false;
 
@@ -35,7 +37,7 @@ public class Validator {
         return true;
     }
 
-    // Implémentation simple du chiffrement César
+    // Simple implementation of Caesar cipher encryption
     public static String encryptCesar(String text, int shift) {
         StringBuilder result = new StringBuilder();
         for (char c : text.toCharArray()) {
@@ -48,11 +50,12 @@ public class Validator {
         return result.toString();
     }
 
+    // Caesar cipher decryption
     public static String decryptCesar(String text, int shift) {
         return encryptCesar(text, 26 - (shift % 26));
     }
 
-    // Chiffrement par substitution
+    // Substitution cipher encryption
     public static String encryptSubstitution(String text, String key) {
         StringBuilder result = new StringBuilder();
         for (char c : text.toCharArray()) {
@@ -66,7 +69,7 @@ public class Validator {
         return result.toString();
     }
 
-    // Déchiffrement par substitution
+    // Substitution cipher decryption
     public static String decryptSubstitution(String text, String key) {
         char[] reverseKey = new char[26];
         for (int i = 0; i < 26; i++) {
