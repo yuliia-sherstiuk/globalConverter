@@ -25,11 +25,11 @@ public class Menu {
 
             System.out.println("================================");
             System.out.println("Choose the destination base:");
-            System.out.println("-h or hexadecimal - Hexadecimal");
-            System.out.println("-o or octal - Octal");
-            System.out.println("-d or decimal - Decimal");
-            System.out.println("-b or binary - Binary");
-            System.out.println("-t or text - Text");
+            System.out.println("- h or hexadecimal");
+            System.out.println("- o or octal");
+            System.out.println("- d or decimal");
+            System.out.println("- b or binary");
+            System.out.println("- t or text (no conversion)");
             System.out.println("================================");
             System.out.print("Your choice: ");
             String base = scanner.nextLine().trim().toLowerCase();
@@ -42,10 +42,11 @@ public class Menu {
             System.out.print("Enter your text: ");
             String text = scanner.nextLine();
 
-            // Placeholder for conversion code:
-            String encodedResult = "blabla"; // Simulated encoding result
+            // 🔄 Conversion of text to chosen base
+            String encodedResult = Validator.encodeTextToBase(text, base);
             System.out.println("Encoded result: " + encodedResult);
 
+            // 🔐 Encryption logic
             if (askYesNo(scanner, "Do you want to encrypt the text? (y/n)")) {
                 String method;
                 do {
@@ -55,7 +56,7 @@ public class Menu {
                     method = scanner.nextLine().trim();
                 } while (!method.equals("1") && !method.equals("2"));
 
-                String toEncrypt = encodedResult; // Encrypt the encoded text
+                String toEncrypt = encodedResult;
                 String encrypted = null;
 
                 if (method.equals("1")) {
@@ -87,11 +88,13 @@ public class Menu {
                 }
             }
 
+            // 🔁 Decode base back to text
             if (askYesNo(scanner, "Do you want to decode the encoded result? (y/n)")) {
-                // Placeholder for decoding
-                System.out.println("Decoded result: " + text);
+                String decodedResult = Validator.decodeBaseToText(encodedResult, base);
+                System.out.println("Decoded result: " + decodedResult);
             }
 
+            // 🔁 Repeat or exit
             boolean validChoice = false;
             while (!validChoice) {
                 System.out.print("Do you want to perform another conversion or quit? (1 = Continue, 2 = Exit): ");
@@ -104,23 +107,22 @@ public class Menu {
                 }
             }
         }
+
         System.out.println("Thank you for using the converter!");
         scanner.close();
     }
 
-    // Function to ask a yes/no question and return the user's choice as a boolean
     public static boolean askYesNo(Scanner scanner, String question) {
         while (true) {
             System.out.print(question + " ");
             String answer = scanner.nextLine().trim().toLowerCase();
             if (Validator.isYesNo(answer)) {
-                return answer.equals("y") || answer.equals("o"); // "o" for French "oui"
+                return answer.equals("y") || answer.equals("o"); // 'o' for 'oui'
             }
             System.out.println("Invalid input. Type 'y' for yes or 'n' for no.");
         }
     }
 
-    // Function to ask for an integer input and validate it
     public static int askInteger(Scanner scanner, String question) {
         while (true) {
             try {
