@@ -1,120 +1,105 @@
 import java.util.Scanner;
 
-public class Menu  {
+public class Menu {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        boolean continuer = true;
+        boolean keepGoing = true;
 
-        // Main loop for the application
-        while (continuer) {
-            // Display main menu
-            System.out.println("======== Convertisseur de base =====");
+        while (keepGoing) {
+            System.out.println("======== Base Converter ========");
             System.out.println("1. Convert text to base");
             System.out.println("2. Exit");
-            System.out.println("=====================================");
-            System.out.print("Your choice (1-2): ");
-            String choixMenu = scanner.nextLine().trim();
+            System.out.println("================================");
+            System.out.print("Your choice (1-2):   ");
 
-            // Validate menu choice
-            if (!choixMenu.equals("1") && !choixMenu.equals("2")) {
+            String menuChoice = scanner.nextLine().trim();
+
+            if (!Validator.isValidMenuChoice(menuChoice)) {
                 System.out.println("Invalid choice. Please enter 1 or 2.");
                 continue;
             }
 
-            // Exit program if user chooses option 2
-            if (choixMenu.equals("2")) {
+            if (menuChoice.equals("2")) {
                 break;
             }
 
-            // Ask user to choose destination base
+            System.out.println("================================");
             System.out.println("Choose the destination base:");
             System.out.println("-h or hexadecimal - Hexadecimal");
             System.out.println("-o or octal       - Octal");
             System.out.println("-d or decimal     - Decimal");
             System.out.println("-b or binary      - Binary");
             System.out.println("-t or text        - Text");
-            System.out.println("=====================================");
+            System.out.println("================================");
             System.out.print("Your choice: ");
             String base = scanner.nextLine().trim().toLowerCase();
 
-            // Validate base input
-            if (!base.matches("-[hodbt]")) {
+            if (!Validator.isValidBase(base)) {
                 System.out.println("Invalid base. Try again.");
                 continue;
             }
 
-            // Ask user to enter the text
             System.out.print("Enter your text: ");
-            String texte = scanner.nextLine();
+            String text = scanner.nextLine();
 
-            // Simulated encoding (to be implemented)
-            String resultatEncode = "blabla";
-            System.out.println("Encoded result: " + resultatEncode);
+            // Placeholder for encoding
+            String encodedResult = "blabla"; // Simulated encoding
+            System.out.println("Encoded result: " + encodedResult);
 
-            // Ask if the user wants to decode the result
-            if (choixOuiNon(scanner, "Do you want to decode the encoded result? y/n")) {
-                // Simulated decoding (to be implemented)
-                System.out.println("Decoded result: " + texte);
+            if (askYesNo(scanner, "Do you want to decode the encoded result? (y/n)")) {
+                // Placeholder for decoding
+                System.out.println("Decoded result: " + text);
             }
 
-            // Ask if the user wants to encrypt the result
-            if (choixOuiNon(scanner, "Do you want to encrypt the encoded result? y/n")) {
-                int cle = demanderEntier(scanner, "Enter the encryption key: ");
-                // Simulated encryption (to be implemented)
-                String chiffre = "blablabla";
-                System.out.println("Encrypted result: " + chiffre);
+            // 🔐 Encryption placeholder
+            if (askYesNo(scanner, "Do you want to encrypt the encoded result? (y/n)")) {
+                int key = askInteger(scanner, "Enter the encryption key (integer): ");
+                String encrypted = "encrypted_" + encodedResult + "_with_key_" + key; // Simulated
+                System.out.println("Encrypted result: " + encrypted);
 
-                // Ask if the user wants to decrypt
-                if (choixOuiNon(scanner, "Do you want to decrypt? y/n")) {
-                    // Simulated decryption (to be implemented)
-                    String dechiffre = "blablabla";
-                    System.out.println("Decrypted result: " + dechiffre);
+                if (askYesNo(scanner, "Do you want to decrypt it? (y/n)")) {
+                    String decrypted = "decrypted_" + encrypted; // Simulated
+                    System.out.println("Decrypted result: " + decrypted);
                 }
             }
 
-            // Ask if user wants to continue or exit
-            boolean choixValide = false;
-            while (!choixValide) {
-                System.out.print("Do you want to perform another conversion or quit? 1-2: ");
-                String choixFinal = scanner.nextLine();
-                if (choixFinal.equals("1")) {
-                    choixValide = true;
-                } else if (choixFinal.equals("2")) {
-                    continuer = false;
-                    choixValide = true;
+            boolean validChoice = false;
+            while (!validChoice) {
+                System.out.print("Do you want to perform another conversion or quit? (1 = Continue, 2 = Exit): ");
+                String finalChoice = scanner.nextLine();
+                if (Validator.isValidMenuChoice(finalChoice)) {
+                    keepGoing = finalChoice.equals("1");
+                    validChoice = true;
                 } else {
                     System.out.println("Invalid choice. Please enter 1 or 2.");
                 }
             }
         }
 
-        // Goodbye message
         System.out.println("Thank you for using the converter!");
         scanner.close();
     }
 
-    // Method to ask yes/no question (returns true for 'o', false for 'n')
-    public static boolean choixOuiNon(Scanner scanner, String question) {
+    public static boolean askYesNo(Scanner scanner, String question) {
         while (true) {
             System.out.print(question + " ");
-            String reponse = scanner.nextLine().trim().toLowerCase();
-            if (reponse.equals("o")) return true;
-            if (reponse.equals("n")) return false;
-            System.out.println("Invalid input. Type 'o' for yes or 'n' for no.");
+            String answer = scanner.nextLine().trim().toLowerCase();
+            if (Validator.isYesNo(answer)) {
+                return answer.equals("y");
+            }
+            System.out.println("Invalid input. Type 'y' for yes or 'n' for no.");
         }
     }
 
-    // Method to safely ask for an integer input
-    public static int demanderEntier(Scanner scanner, String question) {
+    public static int askInteger(Scanner scanner, String question) {
         while (true) {
             try {
                 System.out.print(question);
                 return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("Please enter a valid integer number.");
+                System.out.println("Please enter a valid integer.");
             }
         }
     }
 }
-
