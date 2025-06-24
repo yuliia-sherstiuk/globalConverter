@@ -13,7 +13,7 @@ public class TextAscii {
      * TextAscii constructor, creates two dictionaries to translate text to ascii and the opposite.
      * private for singleton design pattern
      */
-    private TextAscii() {
+    public TextAscii() {
         for (char c= 'A'; c <='Z'; c++){
             asciiTable.put(c, (int)c);
         }
@@ -43,14 +43,6 @@ public class TextAscii {
             reverseAsciiTable.put(c, (char)c);
         }
         //reverse numbers ↑
-    }
-
-    /**
-     * Singleton implementation for text ascii converter
-     * @return TextAscii instance
-     */
-    public TextAscii getInstance(){
-        return new TextAscii();
     }
 
     /**
