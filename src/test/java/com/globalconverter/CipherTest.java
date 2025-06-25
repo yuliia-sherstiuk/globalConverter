@@ -84,7 +84,16 @@ public class CipherTest {
     @Nested
     @DisplayName("Vigenere Cipher Tests")
     class VigenereCipherTests {
-        
+
+        @Test
+        @DisplayName("Encrypt simple text")
+        void testVigenereEncrypt(){
+            String plaintext = "HELLO";
+            String key = "KEY";
+            String expected = "RIJVS";
+            String actual = Cipher.vigenereEncrypt(plaintext, key);
+            assertEquals(expected, actual);
+        }
     }
 
 }
