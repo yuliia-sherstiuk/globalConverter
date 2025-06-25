@@ -11,13 +11,19 @@ public class TextAscii {
 
     /**
      * TextAscii constructor, creates two dictionaries to translate text to ascii and the opposite.
-     * private for singleton design pattern
+     *
      */
     public TextAscii() {
+
+        asciiTable.put(' ', (int)' ');
+        // space ↑
+
         for (char c= 'A'; c <='Z'; c++){
             asciiTable.put(c, (int)c);
         }
         //Uppercase letters ↑
+
+
 
         for (char c='a';c<='z';c++){
             asciiTable.put(c, (int)c);
@@ -28,6 +34,9 @@ public class TextAscii {
             asciiTable.put(c, (int)c);
         }
         // Numbers ↑
+
+        reverseAsciiTable.put((int)' ', ' ');
+        //reverse space ↑
 
         for (int c=65; c<=90; c++){
             reverseAsciiTable.put(c, (char)c);
@@ -53,9 +62,7 @@ public class TextAscii {
     public ArrayList<Integer> textToAscii(String textToTranslate){
         ArrayList<Integer> translationResult=new ArrayList<Integer>();
         for (char letter: textToTranslate.toCharArray()){
-            if (letter==' '){
-                continue;
-            }
+
             translationResult.add(asciiTable.get(letter));
         }
         return translationResult;
