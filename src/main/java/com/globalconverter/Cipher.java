@@ -38,7 +38,7 @@ public class Cipher {
      * key = key substitution (26 characters)
      * return -> encrypt text
      */
-    public static String substitutionProcess(String text, String key, boolean encrypt){
+    private static String substitutionProcess(String text, String key, boolean encrypt){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder result = new StringBuilder();
 
@@ -110,6 +110,50 @@ public class Cipher {
         }
         return result.toString();
      }
+
+        //VIGENERE CIPHER
+    /*
+     * Encrypt and Decrypt text with Vigenere
+     * Take param:
+     * text = text to encrypt
+     * key = key for xor operator
+     * return -> encrypt text or decrypt text
+     */
+     private static String vigenereProcess(String text, String key, boolean encrypt){
+        StringBuilder result = new StringBuilder();
+        String upperKey = key.toUpperCase();
+        int keyIndex = 0;
+
+        for (char c : text.toCharArray()){
+            if(Character.isLetter(c)){
+                Boolean isUpper = Character.isUpperCase(c);
+                char base = isUpper ? 'A' : 'a';
+
+                int shift = upperKey.charAt(keyIndex % upperKey.length()) - 'A';
+                if(!encrypt) shift = -shift;
+                char processed = (char) ((c - base + shift + 26)% 26 + base);
+                result.append(processed);
+                keyIndex++;
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+     }
+
+    /*
+    * Encrypt func
+    */
+    public static String vigenereEncrypt(String text, String key){
+        return vigenereProcess(text, key, true);
+    }
+
+    /*
+    * Decrypt func
+    */
+    public static String vigenereDecrypt(String text, String key){
+        return vigenereProcess(text, key, false);
+    }
 
 
 }
