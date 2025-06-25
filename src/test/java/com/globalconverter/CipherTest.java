@@ -94,6 +94,16 @@ public class CipherTest {
             String actual = Cipher.vigenereEncrypt(plaintext, key);
             assertEquals(expected, actual);
         }
+
+    @Test
+    @DisplayName("Decrypt simple text")
+    void testVigenereDecrypt(){
+        String ciphertext = "RIJVS";
+        String key = "KEY";
+        String expected = "HELLO";
+        String actual = Cipher.vigenereDecrypt(ciphertext, key);
+        assertEquals(expected, actual);
+    }        
     }
 
 }
