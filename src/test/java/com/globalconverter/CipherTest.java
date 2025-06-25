@@ -41,4 +41,19 @@ public class CipherTest {
             assertEquals(expected, actual);
         }
     }
+
+    @Nested
+    @DisplayName("Substitution Cipher Tests")
+    class SubstitutionCipherTests {
+        private final String standardKey =  "ZYXWVUTSRQPONMLKJIHGFEDCBA";
+
+        @Test
+        @DisplayName("Encrypt simple test")
+        void testSubstitutionEncrypt(){
+            String plaintext = "HELLO";
+            String expected = "SVOOL";
+            String actual = Cipher.substitutionEncrypt(plaintext, standardKey);
+            assertEquals(expected, actual);
+        }
+    }
 }
