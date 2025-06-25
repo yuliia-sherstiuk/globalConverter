@@ -38,18 +38,21 @@ public class Cipher {
      * key = key substitution (26 characters)
      * return -> encrypt text
      */
-    public static String substitutionEncrypt(String text, String key){
+    public static String substitutionProcess(String text, String key, boolean encrypt){
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder result = new StringBuilder();
+
+        String source = encrypt ? alphabet : key;
+        String destination = encrypt ? key : alphabet;
         
         for (char c : text.toCharArray()) {
             if (Character.isLetter(c)) {
                 boolean isUpper = Character.isUpperCase(c);
                 char upperC = Character.toUpperCase(c);
-                int index = alphabet.indexOf(upperC);
+                int index = source.indexOf(upperC);
                 
                 if (index != -1) {
-                    char substituted = key.charAt(index);
+                    char substituted = destination.charAt(index);
                     result.append(isUpper ? substituted : Character.toLowerCase(substituted));
                 } else {
                     result.append(c);
@@ -60,33 +63,21 @@ public class Cipher {
         }
         return result.toString();
     }
+
+        /*
+     * Encrypt func
+     */
+    public static String substitutionEncrypt(String text, String key){
+        return substitutionProcess(text, key, true);
+    }
     
     /*
      * Decrypt func
      */
+    public static String substitutionDecrypt(String text, String key){
+        return substitutionProcess(text, key, false);
+    }
 
-     public static String substitutionDecrypt(String text, String key){
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        StringBuilder result = new StringBuilder();
-
-        for (char c : text.toCharArray()) {
-            if(Character.isLetter(c)){
-                boolean isUpper = Character.isUpperCase(c);
-                char upperC = Character.toUpperCase(c);
-                int index = key.indexOf(upperC);
-
-                if (index != -1){
-                    char original = alphabet.charAt(index);
-                    result.append(isUpper ? original: Character.toLowerCase(original));
-                } else {
-                    result.append(c);
-                }
-            } else {
-                result.append(c);
-            }
-        }
-        return result.toString();
-     }
         //XOR CIPHER
     /*
      * Encrypt and Decrypt text with xor 
