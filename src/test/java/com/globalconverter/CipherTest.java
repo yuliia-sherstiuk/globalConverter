@@ -30,5 +30,15 @@ public class CipherTest {
             String actual = Cipher.caesarEncrypt(plaintext, shift);
             assertEquals(expected, actual);
         }
+
+        @Test
+        @DisplayName("Decrypt simple text")
+        void testCaesarDecrypt(){
+            String ciphertext = "KHOOR";
+            int shift = 3;
+            String expected = "HELLO";
+            String actual = Cipher.caesarDecrypt(ciphertext, shift);
+            assertEquals(expected, actual);
+        }
     }
 }
