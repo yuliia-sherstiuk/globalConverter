@@ -20,5 +20,15 @@ public class CipherTest {
             String actual = Cipher.caesarEncrypt(plaintext, shift);
             assertEquals(expected, actual);
         }
+
+        @Test
+        @DisplayName("Encrypted text with mixed case")
+        void testCaesarEncryptMixedCase(){
+            String plaintext = "Hello World";
+            int shift = 5;
+            String expected = "Mjqqt Btwqi";
+            String actual = Cipher.caesarEncrypt(plaintext, shift);
+            assertEquals(expected, actual);
+        }
     }
 }
