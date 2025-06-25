@@ -48,11 +48,20 @@ public class CipherTest {
         private final String standardKey =  "ZYXWVUTSRQPONMLKJIHGFEDCBA";
 
         @Test
-        @DisplayName("Encrypt simple test")
+        @DisplayName("Encrypt simple text")
         void testSubstitutionEncrypt(){
             String plaintext = "HELLO";
             String expected = "SVOOL";
             String actual = Cipher.substitutionEncrypt(plaintext, standardKey);
+            assertEquals(expected, actual);
+        }
+
+        @Test
+        @DisplayName("Decrypt simple text")
+        void testSubstitutionDecrypt(){
+            String ciphertext = "SVOOL";
+            String expected = "HELLO";
+            String actual = Cipher.substitutionDecrypt(ciphertext, standardKey);
             assertEquals(expected, actual);
         }
     }
