@@ -65,4 +65,26 @@ public class CipherTest {
             assertEquals(expected, actual);
         }
     }
+
+    @Nested
+    @DisplayName ("XOR Cipher Tests")
+    class XorCipherTests {
+
+        @Test
+        @DisplayName("XOR cipher basic")
+        void testXorCipherBasic(){
+            String plaintext = "HELLO";
+            String key = "KEY";
+            String encrypted = Cipher.xorCipher(plaintext, key);
+            String decrypted  = Cipher.xorCipher(encrypted, key);
+            assertEquals(plaintext, decrypted);
+        }
+    }
+
+    @Nested
+    @DisplayName("Vigenere Cipher Tests")
+    class VigenereCipherTests {
+        
+    }
+
 }
