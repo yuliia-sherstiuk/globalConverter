@@ -8,12 +8,11 @@ public class AsciiBinary{
 
     /**
      *Translate ascii to binary
-     * @param asciiToTranslate ArrayList of integers received from TextAscii's textToBinary
+     * @param asciiToTranslate ArrayList of integers received from TextAscii's textToBinaryString
      * @return String of binary values corresponding to ascii received.
      */
     public String asciiToBinary(ArrayList<Integer> asciiToTranslate) {
         ArrayList<String> result = new ArrayList<String>();
-
 
         for (Integer currentInteger : asciiToTranslate) {
 
