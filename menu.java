@@ -46,20 +46,32 @@ public class Menu {
             String encodedResult = Validator.encodeTextToBase(text, base);
             System.out.println("Encoded result: " + encodedResult);
 
+            // 🔁 Decode base back to text
+            if (askYesNo(scanner, "Do you want to decode the encoded result? (y/n)")) {
+                String decodedResult = Validator.decodeBaseToText(encodedResult, base);
+                System.out.println("Decoded result: " + decodedResult);
+            }
+
             // 🔐 Encryption logic
             if (askYesNo(scanner, "Do you want to encrypt the text? (y/n)")) {
                 String method;
                 do {
                     System.out.println("1 - Caesar");
                     System.out.println("2 - Simple Substitution");
-                    System.out.print("Choose a method (1 or 2): ");
-                    method = scanner.nextLine().trim();
-                } while (!method.equals("1") && !method.equals("2"));
+                    System.out.println("3 - XOR");
+                    System.out.println("4 - Vigenere");
 
-                String toEncrypt = encodedResult;
+                    System.out.print("Choose a method (1 - 4): ");
+                    method = scanner.nextLine().trim();
+
+                    
+                } while (!method.matches("[1-4]"));  
+
+                String toEncrypt = text; 
                 String encrypted = null;
 
                 if (method.equals("1")) {
+                    // Caesar 
                     int key = askInteger(scanner, "Enter the encryption key (integer): ");
                     encrypted = Validator.encryptCesar(toEncrypt, key);
                     System.out.println("Encrypted text (Caesar): " + encrypted);
@@ -68,15 +80,18 @@ public class Menu {
                         String decrypted = Validator.decryptCesar(encrypted, key);
                         System.out.println("Decrypted text (Caesar): " + decrypted);
                     }
+
                 } else if (method.equals("2")) {
+                    // Simple Substitution 
                     String key;
                     do {
                         System.out.print("Enter the substitution key (26 unique lowercase letters): ");
                         key = scanner.nextLine().trim();
+
                         if (!Validator.isValidSubstitutionKey(key)) {
                             System.out.println("Invalid key, please try again.");
                         }
-                    } while (!Validator.isValidSubstitutionKey(key));
+                    } while (!Validator.isValidSubstitutionKey(key)); 
 
                     encrypted = Validator.encryptSubstitution(toEncrypt, key);
                     System.out.println("Encrypted text (Substitution): " + encrypted);
@@ -85,13 +100,48 @@ public class Menu {
                         String decrypted = Validator.decryptSubstitution(encrypted, key);
                         System.out.println("Decrypted text (Substitution): " + decrypted);
                     }
-                }
-            }
 
-            // 🔁 Decode base back to text
-            if (askYesNo(scanner, "Do you want to decode the encoded result? (y/n)")) {
-                String decodedResult = Validator.decodeBaseToText(encodedResult, base);
-                System.out.println("Decoded result: " + decodedResult);
+                } else if (method.equals("3")) {
+                    // XOR
+                    String xorKeyStr;
+                    do {
+                        System.out.print("Enter XOR key (single character): ");
+                        xorKeyStr = scanner.nextLine();
+
+                        if (xorKeyStr.length() != 1) {
+                            System.out.println("Invalid key. Please enter exactly one character.");
+                        }
+                    } while (xorKeyStr.length() != 1);
+
+                    char xorKey = xorKeyStr.charAt(0);
+                    encrypted = Validator.encryptXOR(toEncrypt, xorKey);
+                    System.out.println("Encrypted text (XOR): " + encrypted);
+
+                    if (askYesNo(scanner, "Do you want to decrypt the text? (y/n)")) {
+                        String decrypted = Validator.decryptXOR(encrypted, xorKey);
+                        System.out.println("Decrypted text (XOR): " + decrypted);
+                    }
+
+                } else if (method.equals("4")) {
+                    // Vigenere 
+                    String keyword;
+                    do {
+                        System.out.print("Enter Vigenere keyword: ");
+                        keyword = scanner.nextLine().trim();
+
+                        if (!keyword.matches("[a-zA-Z]+")) {
+                            System.out.println("Invalid keyword. Please use letters only (A-Z or a-z).");
+                        }
+                    } while (!keyword.matches("[a-zA-Z]+"));  // <-- валидация ключа
+
+                    encrypted = Validator.encryptVigenere(toEncrypt, keyword);
+                    System.out.println("Encrypted text (Vigenere): " + encrypted);
+
+                    if (askYesNo(scanner, "Do you want to decrypt the text? (y/n)")) {
+                        String decrypted = Validator.decryptVigenere(encrypted, keyword);
+                        System.out.println("Decrypted text (Vigenere): " + decrypted);
+                    }
+                }
             }
 
             // 🔁 Repeat or exit
@@ -112,17 +162,19 @@ public class Menu {
         scanner.close();
     }
 
+    //Method for yes/no questions, with validation and hints
     public static boolean askYesNo(Scanner scanner, String question) {
         while (true) {
             System.out.print(question + " ");
             String answer = scanner.nextLine().trim().toLowerCase();
             if (Validator.isYesNo(answer)) {
-                return answer.equals("y") || answer.equals("o"); // 'o' for 'oui'
+                return answer.equals("y") || answer.equals("o"); // 'o' для 'oui' (да)
             }
             System.out.println("Invalid input. Type 'y' for yes or 'n' for no.");
         }
     }
 
+    //Method for inputting an integer with exception handling and retrying
     public static int askInteger(Scanner scanner, String question) {
         while (true) {
             try {

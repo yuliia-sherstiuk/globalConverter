@@ -1,4 +1,5 @@
-// Validator.java
+import com.globalconverter.Cipher;
+
 public class Validator {
 
     public static boolean isValidMenuChoice(String input) {
@@ -129,5 +130,27 @@ public class Validator {
         }
 
         return result.toString();
+    }
+
+    // ✅ XOR encryption/decryption (XOR works symmetrically)
+    public static String encryptXOR(String text, char key) {
+        return Cipher.xorCipher(text, String.valueOf(key));
+    }
+
+    public static String decryptXOR(String text, char key) {
+        return Cipher.xorCipher(text, String.valueOf(key));
+    }
+
+    // ✅ Check key for Vigenere (letters only)
+    public static boolean isValidVigenereKey(String key) {
+        return key != null && key.matches("[a-zA-Z]+");
+    }
+
+    public static String encryptVigenere(String text, String keyword) {
+        return Cipher.vigenereEncrypt(text, keyword);
+    }
+
+    public static String decryptVigenere(String text, String keyword) {
+        return Cipher.vigenereDecrypt(text, keyword);
     }
 }
