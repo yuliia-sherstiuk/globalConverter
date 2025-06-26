@@ -1,4 +1,5 @@
-package main.java.com.globalconverter.converters;
+package com.globalconverter.converters;
+
 import java.util.ArrayList;
 
 public class AsciiHex {

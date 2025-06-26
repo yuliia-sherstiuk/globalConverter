@@ -1,16 +1,19 @@
-package main.java.com.globalconverter;
-
+//class Converter
+package com.globalconverter;
 import java.util.ArrayList;
 
-import main.java.com.globalconverter.converters.TextAscii;
-import main.java.com.globalconverter.converters.AsciiHex;
-import main.java.com.globalconverter.converters.AsciiBinary;
-import main.java.com.globalconverter.converters.AsciiOctal;
+
+
+
+import com.globalconverter.converters.TextAscii;
+import com.globalconverter.converters.AsciiHex;
+import com.globalconverter.converters.AsciiBinary;
+import com.globalconverter.converters.AsciiOctal;
 
 /**
  * Wrapper class to unify access to all converters, applies facade design pattern
  */
-class Converter{
+public class Converter{
 
         TextAscii asciiConverter= new TextAscii();
         AsciiHex hexConverter= new AsciiHex();

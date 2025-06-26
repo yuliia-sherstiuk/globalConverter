@@ -1,19 +1,18 @@
+//Validator.java
 package com.globalconverter;
 
-import com.globalconverter.Cipher;
+
 
 public class Validator {
+
+    private static final Converter conv = new Converter();
 
     public static boolean isValidMenuChoice(String input) {
         return input.equals("1") || input.equals("2");
     }
 
     public static boolean isValidBase(String input) {
-        return input.equals("h") || input.equals("hexadecimal") ||
-               input.equals("o") || input.equals("octal") ||
-               input.equals("d") || input.equals("decimal") ||
-               input.equals("b") || input.equals("binary") ||
-               input.equals("t") || input.equals("text");
+        return input.matches("h|hexadecimal|o|octal|d|decimal|b|binary|t|text");
     }
 
     public static boolean isYesNo(String input) {
@@ -22,130 +21,55 @@ public class Validator {
 
     public static boolean isValidSubstitutionKey(String key) {
         if (key.length() != 26) return false;
-
         boolean[] seen = new boolean[26];
-        for (char c : key.toCharArray()) {
+        for (char c : key.toLowerCase().toCharArray()) {
             if (c < 'a' || c > 'z') return false;
-            int index = c - 'a';
-            if (seen[index]) return false;
-            seen[index] = true;
+            if (seen[c - 'a']) return false;
+            seen[c - 'a'] = true;
         }
         return true;
     }
 
+    public static boolean isValidVigenereKey(String key) {
+        return key != null && key.matches("[a-zA-Z]+");
+    }
+
+    public static String encodeTextToBase(String text, String base) {
+        return switch (base) {
+            case "h", "hexadecimal" -> conv.textToHexString(text);
+            case "o", "octal"       -> conv.textToOctalString(text);
+            case "d", "decimal"     -> conv.textToAsciiString(text);
+            case "b", "binary"      -> conv.textToBinaryString(text);
+            case "t", "text"        -> text;
+            default -> throw new IllegalArgumentException("Unsupported base: " + base);
+        };
+    }
+
+    public static String decodeBaseToText(String encoded, String base) {
+        return switch (base) {
+            case "h", "hexadecimal" -> conv.hexToTextString(encoded);
+            case "o", "octal"       -> conv.octalToTextString(encoded);
+            case "d", "decimal"     -> conv.asciiToTextString(encoded);
+            case "b", "binary"      -> conv.binaryToTextString(encoded);
+            case "t", "text"        -> encoded;
+            default -> throw new IllegalArgumentException("Unsupported base: " + base);
+        };
+    }
+
     public static String encryptCesar(String text, int shift) {
-        StringBuilder result = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            if (Character.isLetter(c)) {
-                char base = Character.isUpperCase(c) ? 'A' : 'a';
-                c = (char) ((c - base + shift + 26) % 26 + base);
-            }
-            result.append(c);
-        }
-        return result.toString();
+        return Cipher.caesarEncrypt(text, shift);
     }
 
     public static String decryptCesar(String text, int shift) {
-        return encryptCesar(text, 26 - (shift % 26));
+        return Cipher.caesarDecrypt(text, shift);
     }
 
-    public static String encryptSubstitution(String text, String key) {
-        StringBuilder result = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            if (Character.isLetter(c)) {
-                char mapped = key.charAt(Character.toLowerCase(c) - 'a');
-                result.append(Character.isUpperCase(c) ? Character.toUpperCase(mapped) : mapped);
-            } else {
-                result.append(c);
-            }
-        }
-        return result.toString();
-    }
-
-    public static String decryptSubstitution(String text, String key) {
-        char[] reverseKey = new char[26];
-        for (int i = 0; i < 26; i++) {
-            reverseKey[key.charAt(i) - 'a'] = (char) ('a' + i);
-        }
-
-        StringBuilder result = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            if (Character.isLetter(c)) {
-                char decoded = reverseKey[Character.toLowerCase(c) - 'a'];
-                result.append(Character.isUpperCase(c) ? Character.toUpperCase(decoded) : decoded);
-            } else {
-                result.append(c);
-            }
-        }
-        return result.toString();
-    }
-
-    // ✅ Convert text to specified base
-    public static String encodeTextToBase(String text, String base) {
-        StringBuilder result = new StringBuilder();
-        for (char c : text.toCharArray()) {
-            int ascii = (int) c;
-            switch (base) {
-                case "h":
-                case "hexadecimal":
-                    result.append(Integer.toHexString(ascii)).append(" ");
-                    break;
-                case "o":
-                case "octal":
-                    result.append(Integer.toOctalString(ascii)).append(" ");
-                    break;
-                case "d":
-                case "decimal":
-                    result.append(ascii).append(" ");
-                    break;
-                case "b":
-                case "binary":
-                    result.append(Integer.toBinaryString(ascii)).append(" ");
-                    break;
-                case "t":
-                case "text":
-                    result.append(c);
-                    break;
-                default:
-                    break;
-            }
-        }
-        return result.toString().trim();
-    }
-
-    // ✅ Convert from base back to text
-    public static String decodeBaseToText(String encoded, String base) {
-        if (base.equals("t") || base.equals("text")) return encoded;
-
-        StringBuilder result = new StringBuilder();
-        String[] tokens = encoded.split("\\s+");
-
-        for (String token : tokens) {
-            int ascii = switch (base) {
-                case "h", "hexadecimal" -> Integer.parseInt(token, 16);
-                case "o", "octal" -> Integer.parseInt(token, 8);
-                case "d", "decimal" -> Integer.parseInt(token, 10);
-                case "b", "binary" -> Integer.parseInt(token, 2);
-                default -> -1;
-            };
-            result.append((char) ascii);
-        }
-
-        return result.toString();
-    }
-
-    // ✅ XOR encryption/decryption (XOR works symmetrically)
     public static String encryptXOR(String text, char key) {
         return Cipher.xorCipher(text, String.valueOf(key));
     }
 
     public static String decryptXOR(String text, char key) {
         return Cipher.xorCipher(text, String.valueOf(key));
-    }
-
-    // ✅ Check key for Vigenere (letters only)
-    public static boolean isValidVigenereKey(String key) {
-        return key != null && key.matches("[a-zA-Z]+");
     }
 
     public static String encryptVigenere(String text, String keyword) {
@@ -155,4 +79,40 @@ public class Validator {
     public static String decryptVigenere(String text, String keyword) {
         return Cipher.vigenereDecrypt(text, keyword);
     }
+
+
+public static String encryptSubstitution(String text, String key) {
+    text = text.toLowerCase();
+    key = key.toLowerCase();
+    StringBuilder result = new StringBuilder();
+    String alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    for (char c : text.toCharArray()) {
+        int index = alphabet.indexOf(c);
+        if (index != -1) {
+            result.append(key.charAt(index));
+        } else {
+            result.append(c);
+        }
+    }
+    return result.toString();
 }
+
+public static String decryptSubstitution(String text, String key) {
+    text = text.toLowerCase();
+    key = key.toLowerCase();
+    StringBuilder result = new StringBuilder();
+    String alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+    for (char c : text.toCharArray()) {
+        int index = key.indexOf(c);
+        if (index != -1) {
+            result.append(alphabet.charAt(index));
+        } else {
+            result.append(c);
+        }
+    }
+    return result.toString();
+}
+}
+
