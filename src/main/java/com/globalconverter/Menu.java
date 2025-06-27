@@ -1,6 +1,5 @@
 package com.globalconverter;
 
-//Menu.java
 import java.util.Scanner;
 
 public class Menu {
@@ -8,6 +7,7 @@ public class Menu {
         Scanner scanner = new Scanner(System.in);
         boolean keepGoing = true;
 
+        //Main loop to keep the program running until the user chooses to exit
         while (keepGoing) {
             System.out.println("======== Base Converter ========");
             System.out.println("1. Convert text to base");
@@ -16,11 +16,13 @@ public class Menu {
             System.out.print("Your choice (1-2): ");
             String menuChoice = scanner.nextLine().trim();
 
+            // Validate user's menu choice input
             if (!Validator.isValidMenuChoice(menuChoice)) {
                 System.out.println("Invalid choice. Please enter 1 or 2.");
                 continue;
             }
 
+            // Exit the program if the user chooses to do so
             if (menuChoice.equals("2")) {
                 break;
             }
@@ -36,6 +38,7 @@ public class Menu {
             System.out.print("Your choice: ");
             String base = scanner.nextLine().trim().toLowerCase();
 
+            // Validate user's base choice input
             if (!Validator.isValidBase(base)) {
                 System.out.println("Invalid base. Try again.");
                 continue;
@@ -54,7 +57,7 @@ public class Menu {
                 System.out.println("Decoded result: " + decodedResult);
             }
 
-            // 🔐 Encryption logic
+            // 🔐 Option to encrypt the text using various methods
             if (askYesNo(scanner, "Do you want to encrypt the text? (y/n)")) {
                 String method;
                 do {
@@ -72,6 +75,7 @@ public class Menu {
                 String toEncrypt = text; 
                 String encrypted = null;
 
+                //Enncryption using the Ceasar cipher method
                 if (method.equals("1")) {
                    
                     int key = askInteger(scanner, "Enter the encryption key (integer): ");
@@ -83,6 +87,7 @@ public class Menu {
                         System.out.println("Decrypted text (Caesar): " + decrypted);
                     }
 
+                //Enncryption using the Simple Substitution cipher method
                 } else if (method.equals("2")) {
                   
                     String key;
@@ -103,8 +108,9 @@ public class Menu {
                         System.out.println("Decrypted text (Substitution): " + decrypted);
                     }
 
+                //Enncryption using the XOR cipher method
                 } else if (method.equals("3")) {
-                    // XOR 
+                    
                     String xorKeyStr;
                     do {
                         System.out.print("Enter XOR key (single character): ");
@@ -124,8 +130,9 @@ public class Menu {
                         System.out.println("Decrypted text (XOR): " + decrypted);
                     }
 
+                //Enncryption using the Vigenere cipher method
                 } else if (method.equals("4")) {
-                    // Vigenere 
+                    
                     String keyword;
                     do {
                         System.out.print("Enter Vigenere keyword: ");
@@ -146,7 +153,7 @@ public class Menu {
                 }
             }
 
-            // 🔁
+            // Ask the user if they want to perform another conversion
             boolean validChoice = false;
             while (!validChoice) {
                 System.out.print("Do you want to perform another conversion or quit? (1 = Continue, 2 = Exit): ");
@@ -164,7 +171,7 @@ public class Menu {
         scanner.close();
     }
 
-   
+    //Helper method to ask a yes/no question and validate the response
     public static boolean askYesNo(Scanner scanner, String question) {
         while (true) {
             System.out.print(question + " ");
@@ -176,7 +183,7 @@ public class Menu {
         }
     }
 
-   
+   //Helper method to ask for an integer input and validate the response
     public static int askInteger(Scanner scanner, String question) {
         while (true) {
             try {
