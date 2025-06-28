@@ -11,7 +11,7 @@ Gotta Convert 'Em All!' This project aims to create a Java application that allo
 
 - **String Conversion**: The application allows users to translate messages into different numerical bases : octal, hexadecimal, binary, or text.
 
-- **Input Validation**: It checks that the input string contains only alphabetical and/or numerical characters. If the inpu is invalid, an error message is displayed, prompting the uses to enter a string.
+- **Input Validation**: It checks that the input string contains only alphabetical and/or numerical characters. If the input is invalid, an error message is displayed, prompting the user to enter a string.
 
 - **Base Selection**: Users can choose the desired conversion base. If the entered base is invalid, an error message is shown.
 
@@ -31,20 +31,28 @@ To convert:
 - text: '-t' or 'text
 
 To encrypt:
-1 - Caesar
-2 - Simple Substitution
-3 - XOR
-4 - Vigenere
+- Caesar
+- Simple Substitution
+- XOR
+- Vigenere
 
 ## Command line possibilities
 
 First of all : compile using mvn or line command
-- mvn compile
+```bash
+ mvn compile
+``` 
 Than navigate to the good directory
-- cd target/classes
+```bash
+cd target/classes
+``` 
+
 Than use the command line below.
 
-PS : To run the interactive menu : java com.globalconverter.Menu
+PS : To run the interactive menu : 
+```bash
+java com.globalconverter.Menu
+``` 
 
 ### 1. ENCODING ONLY (Base Only)
 
