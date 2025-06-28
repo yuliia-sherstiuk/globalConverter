@@ -16,6 +16,53 @@ public class Menu {
 
     //To run command line mode
     private static void runCommandLineMode(String[] args){
+        String base = null;
+        String text = null;
+        String encryptionMethod = null;
+        String key = null;
+
+        //parsing arguments
+        for (int i = 0; i < args.length; i++){
+            switch (args[i]){
+                case "-h" :
+                case "hexadecimal":
+                    base = "hexadecimal";
+                    break;
+                case "-o":
+                case "octal":
+                    base = "octal";
+                    break;
+                case "-d":
+                case "decimal":
+                    base = "decimal";
+                    break;
+                case "-b":
+                case "binary":
+                    base = "binary";
+                    break;
+                case "-t":
+                case "text":
+                    base = "text";
+                    break;
+                case "-a":
+                    if (i + 1 < args.length){
+                        encryptionMethod = args[++i];
+                    }
+                    break;
+                case "-k":
+                case "key":
+                    if (i + 1 < args.length) {
+                        key = args[++i];
+                    }
+                    break;
+                default:
+                //if it is not a flag it is probably a text
+                if (!args[i].startsWith("-") && text == null){
+                    text = args[i];
+                }
+                break;
+            }
+        }
 
     }
     //To run Classic menu 
