@@ -7,6 +7,8 @@ Gotta Convert 'Em All!' This project aims to create a Java application that allo
 
 ## Features
 
+- **Line Command**: The application allows users to type line commands.
+
 - **String Conversion**: The application allows users to translate messages into different numerical bases : octal, hexadecimal, binary, or text.
 
 - **Input Validation**: It checks that the input string contains only alphabetical and/or numerical characters. If the inpu is invalid, an error message is displayed, prompting the uses to enter a string.
@@ -17,7 +19,7 @@ Gotta Convert 'Em All!' This project aims to create a Java application that allo
 
 - **Encryption and Decryption**: The application incorporates 4 encryptions algorithms, Caesar, Simple substitution, Xor and Vigenere. Users can specify the desired encryption key.
 
-## Command Line Options
+## Options using traditionnal menu
 
 The following options are available to run the program:
 
@@ -33,6 +35,128 @@ To encrypt:
 2 - Simple Substitution
 3 - XOR
 4 - Vigenere
+
+## Command line possibilities
+
+First of all : compile using mvn or line command
+- mvn compile
+Than navigate to the good directory
+- cd target/classes
+Than use the command line below.
+
+PS : To run the interactive menu : java com.globalconverter.Menu
+
+### 1. ENCODING ONLY (Base Only)
+
+#### Long Form:
+```bash
+java com.globalconverter.Menu hexadecimal "Hello World"
+java com.globalconverter.Menu octal "Hello World"
+java com.globalconverter.Menu decimal "Hello World"
+java com.globalconverter.Menu binary "Hello World"
+java com.globalconverter.Menu text "Hello World"
+```
+
+#### Short Form:
+```bash
+java com.globalconverter.Menu -h "Hello World"
+java com.globalconverter.Menu -o "Hello World"
+java com.globalconverter.Menu -d "Hello World"
+java com.globalconverter.Menu -b "Hello World"
+java com.globalconverter.Menu -t "Hello World"
+```
+
+### 2. ENCODING + CAESAR CIPHER
+
+#### With Long Form Base:
+```bash
+java com.globalconverter.Menu hexadecimal "Hello World" -a caesar -k 3
+java com.globalconverter.Menu hexadecimal "Hello World" -a cesar -k 3
+java com.globalconverter.Menu octal "Hello World" -a caesar -k 5
+java com.globalconverter.Menu decimal "Hello World" -a caesar -k 10
+java com.globalconverter.Menu binary "Hello World" -a caesar -k 1
+java com.globalconverter.Menu text "Hello World" -a caesar -k 7
+```
+
+#### With Short Form Base:
+```bash
+java com.globalconverter.Menu -h "Hello World" -a caesar -k 3
+java com.globalconverter.Menu -o "Hello World" -a caesar -k 5
+java com.globalconverter.Menu -d "Hello World" -a caesar -k 10
+java com.globalconverter.Menu -b "Hello World" -a caesar -k 1
+java com.globalconverter.Menu -t "Hello World" -a caesar -k 7
+```
+
+#### Variants with "key" Instead of "-k":
+```bash
+java com.globalconverter.Menu -h "Hello World" -a caesar key 3
+java com.globalconverter.Menu hexadecimal "Hello World" -a caesar key 3
+```
+
+### 3. ENCODING + SUBSTITUTION CIPHER
+
+```bash
+java com.globalconverter.Menu -h "Hello World" -a substitution -k "ZYXWVUTSRQPONMLKJIHGFEDCBA"
+java com.globalconverter.Menu hexadecimal "Hello World" -a substitution -k "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+java com.globalconverter.Menu -o "Hello World" -a substitution key "QWERTYUIOPASDFGHJKLZXCVBNM"
+```
+
+### 4. ENCODING + XOR CIPHER
+
+```bash
+java com.globalconverter.Menu -h "Hello World" -a xor -k "secret"
+java com.globalconverter.Menu hexadecimal "Hello World" -a xor -k "key123"
+java com.globalconverter.Menu -b "Hello World" -a xor -k "a"
+java com.globalconverter.Menu octal "Hello World" -a xor key "mypassword"
+```
+
+### 5. ENCODING + VIGENERE CIPHER
+
+```bash
+java com.globalconverter.Menu -h "Hello World" -a vigenere -k "SECRET"
+java com.globalconverter.Menu hexadecimal "Hello World" -a vigenere -k "password"
+java com.globalconverter.Menu -d "Hello World" -a vigenere -k "KEY"
+java com.globalconverter.Menu binary "Hello World" -a vigenere key "CIPHER"
+```
+
+### 6. EXAMPLES WITH DIFFERENT ARGUMENT ORDERS
+
+```bash
+# Different parameter order
+java com.globalconverter.Menu "Hello World" -h -a caesar -k 3
+java com.globalconverter.Menu -a caesar "Hello World" -h -k 3
+java com.globalconverter.Menu -k 3 -a caesar -h "Hello World"
+
+# Mixing long/short forms
+java com.globalconverter.Menu hexadecimal "Hello World" -a caesar key 3
+java com.globalconverter.Menu -h "Hello World" -a vigenere key "SECRET"
+```
+
+### 7. INVALID COMMANDS (which will display help)
+
+```bash
+# Missing the base
+java com.globalconverter.Menu "Hello World" -a caesar -k 3
+
+# Missing the text
+java com.globalconverter.Menu -h -a caesar -k 3
+
+# Completely missing arguments
+java com.globalconverter.Menu
+
+```
+
+### IMPORTANT NOTES:
+
+- **The text must always be in quotes** if it contains spaces.
+- **A base is always required** (long or short form).
+- **The text is mandatory**.
+- **If `-a` is specified, `-k` is generally required** (depending on the algorithm).
+- **The order of arguments may vary** (except the text, which is detected automatically).
+- **Caesar keys must be integers**.
+- **Substitution keys must have exactly 26 unique letters**.
+- **Vigenere keys must contain only letters**.
+- **XOR keys can be any non-empty string**.
 
 ## Project Structure
 
