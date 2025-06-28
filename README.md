@@ -166,6 +166,86 @@ java com.globalconverter.Menu
 - **Vigenere keys must contain only letters**.
 - **XOR keys can be any non-empty string**.
 
+---
+
+## Key Specifications for Encryption Methods
+
+### **CAESAR CIPHER**
+
+- **Key Type:** `int`
+- **Specifications:**
+  - **Value:** Any integer (positive, negative, zero)
+  - **Practical Range:** 0-25 (normalized by modulo 26)
+  - **Valid Examples:** `3`, `13`, `26`, `-5`, `1000`
+
+---
+
+### **SIMPLE SUBSTITUTION CIPHER**
+
+- **Key Type:** `String`
+- **Specifications:**
+  - **Length:** Exactly **26 characters**
+  - **Characters:** Only letters (a-z or A-Z)
+  - **Uniqueness:** Each letter must be **unique**
+  - **Case:** Case insensitive (automatically converted)
+  - **Valid Example:** `"zyxwvutsrqponmlkjihgfedcba"`
+  - **Invalid Example:** `"abcdefghijklmnopqrstuvwxya"` (letter repeated)
+
+---
+
+### **XOR CIPHER**
+
+- **Key Type:** `String`
+- **Specifications:**
+  - **Length:** At least **1 character**
+  - **Characters:** **All characters** accepted
+  - **Repetition:** The key repeats if shorter than the text
+  - **Valid Examples:**
+    - `"A"`
+    - `"KEY123"`
+    - `"M@$t3r!"`
+    - `"Very Long Key With Spaces"`
+
+---
+
+### **VIGENÈRE CIPHER**
+
+- **Key Type:** `String`
+- **Specifications:**
+  - **Length:** At least **1 character**
+  - **Characters:** Only **letters** (a-z, A-Z)
+  - **Prohibited:** Numbers, spaces, symbols
+  - **Case:** Case insensitive (converted to uppercase)
+  - **Repetition:** Repeats cyclically
+  - **Valid Examples:** `"KEY"`, `"VERYLONGKEYWORD"`, `"a"`
+  - **Invalid Examples:** `"KEY123"` (contains numbers), `"KEY WORD"` (contains space)
+
+---
+
+### **COMPARATIVE SUMMARY**
+```
++------------------+---------+----------+--------------------------+-----------------------------+
+| Method           | Type    | Length   | Allowed Characters       | Special Constraints         |
+|------------------|---------|----------|--------------------------|-----------------------------|
+| **Caesar**       | `int`   | N/A      | N/A                      | None                        |
+| **Substitution** | `String`| 26       | Letters only             | Each letter unique          |
+| **XOR**          | `String`| ≥ 1      | All characters           | None                        |
+| **Vigenère**     | `String`| ≥ 1      | Letters only             | None                        |
+|__________________|_________|__________|__________________________|_____________________________|
+```
+---
+
+### **SECURITY vs KEY LENGTH**
+
+- **Caesar:** Low security (max 25 possibilities)
+- **Substitution:** High security (26! possibilities)
+- **XOR:** Security depends on length (ideal = text length)
+- **Vigenère:** Security increases with key length
+
+Most of these encryption methods are considered obsolete and should not be used today. They are vulnerable to various attacks and can be easily broken with modern computational capabilities. For secure applications, it is recommended to use contemporary encryption standards such as AES or RSA.
+
+---
+
 ## Project Structure
 
 The project is organizes into several classes for better modularity and readability:
