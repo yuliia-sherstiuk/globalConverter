@@ -70,6 +70,9 @@ public class Menu {
             System.out.println("Options: -a <algorithm> -k <key>");
             return;
         }
+        //Base Conversion
+        String encodedResult = Validator.encodeTextToBase(text, base);
+        System.out.println("Encoded result: " + encodedResult);
 
 
     }
