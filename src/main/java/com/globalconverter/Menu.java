@@ -100,6 +100,14 @@ public class Menu {
                         System.out.println("Substitution cipher requires a valid 26-letter key.");
                     }
                     break;
+                case "xor":
+                    if (key != null && key.length() >= 1){ 
+                        encrypted = Validator.encryptXOR(text, key);  
+                        System.out.println("Encrypted text (XOR): " + encrypted);
+                    } else {
+                        System.out.println("XOR cipher requires a key (-k <key>).");
+                    }
+                    break;
 
             }
 
