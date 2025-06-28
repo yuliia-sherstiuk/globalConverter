@@ -63,6 +63,14 @@ public class Menu {
                 break;
             }
         }
+        //Verify that there is almost one text and one base
+        if (base == null || text == null){
+            System.out.println("Usage: java Menu <base> \"<text>\"[options]");
+            System.out.println("Bases: hexadecimal, octal, decimal, binary, text");
+            System.out.println("Options: -a <algorithm> -k <key>");
+            return;
+        }
+
 
     }
     //To run Classic menu 
