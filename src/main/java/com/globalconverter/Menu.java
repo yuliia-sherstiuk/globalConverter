@@ -47,17 +47,17 @@ public class Menu {
             System.out.print("Enter your text: ");
             String text = scanner.nextLine();
 
-            // 🔄 Conversion of text to chosen base
+            //Conversion of text to chosen base
             String encodedResult = Validator.encodeTextToBase(text, base);
             System.out.println("Encoded result: " + encodedResult);
 
-            // 🔁 Decode base back to text
+            // Decode base back to text
             if (askYesNo(scanner, "Do you want to decode the encoded result? (y/n)")) {
                 String decodedResult = Validator.decodeBaseToText(encodedResult, base);
                 System.out.println("Decoded result: " + decodedResult);
             }
 
-            // 🔐 Option to encrypt the text using various methods
+            // Option to encrypt the text using various methods
             if (askYesNo(scanner, "Do you want to encrypt the text? (y/n)")) {
                 String method;
                 do {
@@ -75,7 +75,7 @@ public class Menu {
                 String toEncrypt = text; 
                 String encrypted = null;
 
-                //Enncryption using the Ceasar cipher method
+                //Encryption using the Caesar cipher method
                 if (method.equals("1")) {
                    
                     int key = askInteger(scanner, "Enter the encryption key (integer): ");
@@ -87,12 +87,12 @@ public class Menu {
                         System.out.println("Decrypted text (Caesar): " + decrypted);
                     }
 
-                //Enncryption using the Simple Substitution cipher method
+                //Encryption using the Simple Substitution cipher method
                 } else if (method.equals("2")) {
                   
                     String key;
                     do {
-                        System.out.print("Enter the substitution key (26 unique lowercase letters): ");
+                        System.out.print("Enter the substitution key (26 unique letters): ");
                         key = scanner.nextLine().trim();
 
                         if (!Validator.isValidSubstitutionKey(key)) {
@@ -108,20 +108,19 @@ public class Menu {
                         System.out.println("Decrypted text (Substitution): " + decrypted);
                     }
 
-                //Enncryption using the XOR cipher method
+                //Encryption using the XOR cipher method
                 } else if (method.equals("3")) {
                     
-                    String xorKeyStr;
+                    String xorKey;
                     do {
-                        System.out.print("Enter XOR key (single character): ");
-                        xorKeyStr = scanner.nextLine();
+                        System.out.print("Enter XOR key (can be multi-character): ");
+                        xorKey = scanner.nextLine();
 
-                        if (xorKeyStr.length() != 1) {
-                            System.out.println("Invalid key. Please enter exactly one character.");
+                        if (!Validator.isValidXORKey(xorKey)) {
+                            System.out.println("Invalid key. Please enter at least one character.");
                         }
-                    } while (xorKeyStr.length() != 1);
+                    } while (!Validator.isValidXORKey(xorKey));
 
-                    char xorKey = xorKeyStr.charAt(0);
                     encrypted = Validator.encryptXOR(toEncrypt, xorKey);
                     System.out.println("Encrypted text (XOR): " + encrypted);
 
@@ -130,18 +129,18 @@ public class Menu {
                         System.out.println("Decrypted text (XOR): " + decrypted);
                     }
 
-                //Enncryption using the Vigenere cipher method
+                //Encryption using the Vigenere cipher method
                 } else if (method.equals("4")) {
                     
                     String keyword;
                     do {
-                        System.out.print("Enter Vigenere keyword: ");
+                        System.out.print("Enter Vigenere keyword (only letters): ");
                         keyword = scanner.nextLine().trim();
 
-                        if (!keyword.matches("[a-zA-Z]+")) {
+                        if (!Validator.isValidVigenereKey(keyword)) {
                             System.out.println("Invalid keyword. Please use letters only (A-Z or a-z).");
                         }
-                    } while (!keyword.matches("[a-zA-Z]+"));  
+                    } while (!Validator.isValidVigenereKey(keyword));  
 
                     encrypted = Validator.encryptVigenere(toEncrypt, keyword);
                     System.out.println("Encrypted text (Vigenere): " + encrypted);
