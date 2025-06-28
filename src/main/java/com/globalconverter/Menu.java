@@ -73,6 +73,27 @@ public class Menu {
         //Base Conversion
         String encodedResult = Validator.encodeTextToBase(text, base);
         System.out.println("Encoded result: " + encodedResult);
+        //Encrypt if asked
+      if (encryptionMethod != null);
+            String encrypted = null;
+
+            switch (encryptionMethod.toLowerCase()) {
+                case "caesar":
+                case "cesar":
+                    if (key != null) {
+                        try {
+                            int caesarKey = Integer.parseInt(key);
+                            encrypted = Validator.encryptCesar(text, caesarKey);
+                            System.out.println("Encrypted text (Caesar): " + encrypted);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Caesar cipher requires an integer key.");
+                        }
+                    } else {
+                        System.out.println("Caesar cipher requires a key (-k <number>).");
+                    }
+                    break;
+
+            }
 
 
     }
