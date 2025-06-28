@@ -166,7 +166,6 @@ java com.globalconverter.Menu
 - **Vigenere keys must contain only letters**.
 - **XOR keys can be any non-empty string**.
 
----
 
 ## Key Specifications for Encryption Methods
 
@@ -178,7 +177,6 @@ java com.globalconverter.Menu
   - **Practical Range:** 0-25 (normalized by modulo 26)
   - **Valid Examples:** `3`, `13`, `26`, `-5`, `1000`
 
----
 
 ### **SIMPLE SUBSTITUTION CIPHER**
 
@@ -191,7 +189,6 @@ java com.globalconverter.Menu
   - **Valid Example:** `"zyxwvutsrqponmlkjihgfedcba"`
   - **Invalid Example:** `"abcdefghijklmnopqrstuvwxya"` (letter repeated)
 
----
 
 ### **XOR CIPHER**
 
@@ -206,7 +203,6 @@ java com.globalconverter.Menu
     - `"M@$t3r!"`
     - `"Very Long Key With Spaces"`
 
----
 
 ### **VIGENÈRE CIPHER**
 
@@ -220,7 +216,6 @@ java com.globalconverter.Menu
   - **Valid Examples:** `"KEY"`, `"VERYLONGKEYWORD"`, `"a"`
   - **Invalid Examples:** `"KEY123"` (contains numbers), `"KEY WORD"` (contains space)
 
----
 
 ### **COMPARATIVE SUMMARY**
 ```
@@ -233,7 +228,6 @@ java com.globalconverter.Menu
 | **Vigenère**     | `String`| ≥ 1      | Letters only             | None                        |
 |__________________|_________|__________|__________________________|_____________________________|
 ```
----
 
 ### **SECURITY vs KEY LENGTH**
 
@@ -241,6 +235,8 @@ java com.globalconverter.Menu
 - **Substitution:** High security (26! possibilities)
 - **XOR:** Security depends on length (ideal = text length)
 - **Vigenère:** Security increases with key length
+
+---
 
 Most of these encryption methods are considered obsolete and should not be used today. They are vulnerable to various attacks and can be easily broken with modern computational capabilities. For secure applications, it is recommended to use contemporary encryption standards such as AES or RSA.
 
