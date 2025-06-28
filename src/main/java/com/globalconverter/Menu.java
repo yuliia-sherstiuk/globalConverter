@@ -92,6 +92,14 @@ public class Menu {
                         System.out.println("Caesar cipher requires a key (-k <number>).");
                     }
                     break;
+                case "substitution":
+                    if (key != null && Validator.isValidSubstitutionKey(key)) {
+                        encrypted = Validator.encryptSubstitution(text, key);
+                        System.out.println("Encrypted text (Substitution): " + encrypted);
+                    } else {
+                        System.out.println("Substitution cipher requires a valid 26-letter key.");
+                    }
+                    break;
 
             }
 
