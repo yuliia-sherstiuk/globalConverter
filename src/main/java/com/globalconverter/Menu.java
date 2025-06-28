@@ -3,7 +3,23 @@ package com.globalconverter;
 import java.util.Scanner;
 
 public class Menu {
-    public static void main(String[] args) {
+
+    public static void main(String[] args){
+        //if no arguments, run interactive mode
+        if(args.length == 0){
+            runInteractiveMode();
+        } else {
+            //Command line mode
+            runCommandLineMode(args);
+        }
+    }
+
+    //To run command line mode
+    private static void runCommandLineMode(String[] args){
+
+    }
+    //To run Classic menu 
+    private static void runInteractiveMode() {
         Scanner scanner = new Scanner(System.in);
         boolean keepGoing = true;
 
