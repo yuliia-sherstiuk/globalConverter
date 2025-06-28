@@ -144,11 +144,15 @@ globalConverter/
 +-------------------------------------------+
 | + caesarEncrypt(String, int): String      |
 | + caesarDecrypt(String, int): String      |
+| + substitutionProcess(String, String,     |
+|                          boolean): String |
 | + substitutionEncrypt(String, String):    |
 |                                    String |
 | + substitutionDecrypt(String, String):    |
 |                                    String |
 | + xorCipher(String, String): String       |
+| + vigenereProcess(String, String,         |
+|                          boolean): String |
 | + vigenereEncrypt(String, String): String |
 | + vigenereDecrypt(String, String): String |
 +-------------------------------------------+
