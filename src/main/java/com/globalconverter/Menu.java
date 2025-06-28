@@ -65,8 +65,8 @@ public class Menu {
         }
         //Verify that there is almost one text and one base
         if (base == null || text == null){
-            System.out.println("Usage: java Menu <base> \"<text>\"[options]");
-            System.out.println("Bases: hexadecimal, octal, decimal, binary, text");
+            System.out.println("Usage: java Menu <base> \"<text>\" [options]");
+            System.out.println("Bases: -h/hexadecimal, -o/octal, -d/decimal, -b/binary, -t/text");
             System.out.println("Options: -a <algorithm> -k <key>");
             return;
         }
@@ -74,7 +74,7 @@ public class Menu {
         String encodedResult = Validator.encodeTextToBase(text, base);
         System.out.println("Encoded result: " + encodedResult);
         //Encrypt if asked
-      if (encryptionMethod != null);
+        if (encryptionMethod != null){ 
             String encrypted = null;
 
             switch (encryptionMethod.toLowerCase()) {
@@ -116,13 +116,12 @@ public class Menu {
                         System.out.println("Vigenere cipher requires an alphabetic key.");
                     }
                     break;
-              default:
-                System.out.println("Unknown encryption method: " + encryptionMethod);
-                break;
-                      
+                default:
+                    System.out.println("Unknown encryption method: " + encryptionMethod);
+                    break;
             }
+        }
     }
-}
 
     //To run Classic menu 
     private static void runInteractiveMode() {
