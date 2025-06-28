@@ -108,11 +108,22 @@ public class Menu {
                         System.out.println("XOR cipher requires a key (-k <key>).");
                     }
                     break;
-
+                case "vigenere":
+                    if (key != null && key.matches("[a-zA-Z]+")){
+                        encrypted = Validator.encryptVigenere(text, key);
+                        System.out.println("Encrypted text (Vigenere): " + encrypted);
+                    } else {
+                        System.out.println("Vigenere cipher requires an alphabetic key.");
+                    }
+                    break;
+              default:
+                System.out.println("Unknown encryption method: " + encryptionMethod);
+                break;
+                      
             }
-
-
     }
+}
+
     //To run Classic menu 
     private static void runInteractiveMode() {
         Scanner scanner = new Scanner(System.in);
