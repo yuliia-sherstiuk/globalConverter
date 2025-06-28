@@ -15,24 +15,32 @@ Gotta Convert 'Em All!' This project aims to create a Java application that allo
 
 - **Reversible Conversion**: Any conversion can be reversed, allowing for bidirectional translation.
 
-- **Encryption and Decryption**: The application incorporates a simple encryption algorithm, Caesar cipher. Users can specify the desired encryption key.
+- **Encryption and Decryption**: The application incorporates 4 encryptions algorithms, Caesar, Simple substitution, Xor and Vigenere. Users can specify the desired encryption key.
 
 ## Command Line Options
 
 The following options are available to run the program:
 
-- To convert to hexadecimal: '-h' or 'hexadecimal'
-- To convert to octal: '-o' or 'octal'
-- To convert to decimal: '-d' or 'decimal'
-- To convert to binary: '-b' or 'binary'
-- To convert to text: '-t' or 'text
+To convert:
+- hexadecimal: '-h' or 'hexadecimal'
+- octal: '-o' or 'octal'
+- decimal: '-d' or 'decimal'
+- binary: '-b' or 'binary'
+- text: '-t' or 'text
+
+To encrypt:
+1 - Caesar
+2 - Simple Substitution
+3 - XOR
+4 - Vigenere
 
 ## Project Structure
 
 The project is organizes into several classes for better modularity and readability:
  - **Main**: The main class to run the application.
  - **Menu**: The menu class to display the menu and user inputs
- - **Converter**: The class responsible for conversions between different bases.
+ - **Converters**: The directory with all the files responsible for conversions between different bases.
+ - **Converter**: The class that manage converters methods.
  - **Validator**: The class for validating user inputs.
  - **Cipher**: The class for managing the encryption and decryption of strings.
 
@@ -44,6 +52,11 @@ globalConverter/
 │   │   ├── java/               
 │   │   │   ├── com/           
 │   │   │   │   ├── globalconverter/
+│   │   │   │   │   ├── converters/
+│   │   │   │   │   │   ├── AsciiBinary.java 
+│   │   │   │   │   │   ├── AsciiHex.java  
+│   │   │   │   │   │   ├── AsciiOctal.java
+│   │   │   │   │   │   └── TextAscii.java
 │   │   │   │   │   ├── Main.java  
 │   │   │   │   │   ├── Converter.java 
 │   │   │   │   │   ├── Validator.java
@@ -56,10 +69,9 @@ globalConverter/
 │   └── test/                   
 │       ├── java/              
 │       │   ├── com/           
-│       │   │   ├── example/     
-│       │   │   │   ├── ...
-│       │   │   │   ├── ...
-│       │   │   │   └── ...      
+│       │   │   ├── globalconverter/     
+│       │   │   │   ├── CipherTest.java
+│       │   │   │   └── ValidatorTest.java      
 │       │
 │       └── resources/          
 │
@@ -70,6 +82,117 @@ globalConverter/
 └── pom.xml      
 ```
 
+## Class Diagram
+
+```
++-------------------------------------------+
+|                Converter                  |
++-------------------------------------------+
+| - asciiConverter: TextAscii               |
+| - hexConverter: AsciiHex                  |
+| - binaryConverter: AsciiBinary            |
+| - octalConverter: AsciiOctal              |
++-------------------------------------------+
+| + textToAsciiString(String): String       |
+| + asciiToTextString(String): String       |
+| + textToBinaryString(String): String      |
+| + binaryToTextString(String): String      |
+| + textToOctalString(String): String       |
+| + octalToTextString(String): String       |
+| + textToHexString(String): String         |
+| + hexToTextString(String): String         |
++-------------------------------------------+
+
++-------------------------------------------+
+|               TextAscii                   |
++-------------------------------------------+
+| - asciiTable: HashMap<Character, Integer> |
+| - reverseAsciiTable: HashMap<Integer,     |
+|                                Character> |
++-------------------------------------------+
+| + textToAscii(String): ArrayList<Integer> |
+| + asciiToText(ArrayList<Integer>): String |
++-------------------------------------------+
+
++-------------------------------------------+
+|               AsciiBinary                 |
++-------------------------------------------+
+| + asciiToBinary(ArrayList<Integer>):      |
+|                                    String |
+| + binaryToAscii(String): ArrayList        |
+|                                 <Integer> |
++-------------------------------------------+
+
++-------------------------------------------+
+|                AsciiHex                   |
++-------------------------------------------+
+| + asciiToHex(ArrayList<Integer>): String  |
+| + hexToAscii(String): ArrayList<Integer>  |
++-------------------------------------------+
+
++-------------------------------------------+
+|               AsciiOctal                  |
++-------------------------------------------+
+| + asciiToOctal(ArrayList<Integer>):       |
+|                                   String  |
+| + octalToAscii(String): ArrayList         |
+|                                <Integer>  |
++-------------------------------------------+
+
++-------------------------------------------+
+|                 Cipher                    |
++-------------------------------------------+
+| + caesarEncrypt(String, int): String      |
+| + caesarDecrypt(String, int): String      |
+| + substitutionProcess(String, String,     |
+|                          boolean): String |
+| + substitutionEncrypt(String, String):    |
+|                                    String |
+| + substitutionDecrypt(String, String):    |
+|                                    String |
+| + xorCipher(String, String): String       |
+| + vigenereProcess(String, String,         |
+|                          boolean): String |
+| + vigenereEncrypt(String, String): String |
+| + vigenereDecrypt(String, String): String |
++-------------------------------------------+
+
++-------------------------------------------+
+|                Validator                  |
++-------------------------------------------+
+| + isValidMenuChoice(String): boolean      |
+| + isValidBase(String): boolean            |
+| + isYesNo(String): boolean                |
+| + isValidSubstitutionKey(String): boolean |
+| + isValidVigenereKey(String): boolean     |
+| + isValidXORKey(String): boolean          |
+| + encodeTextToBase(String, String):String |
+| + decodeBaseToText(String, String):String |
+| + encryptCesar(String, int): String       |
+| + decryptCesar(String, int): String       |
+| + encryptXOR(String, String): String      |
+| + decryptXOR(String, String): String      |
+| + encryptVigenere(String, String): String |
+| + decryptVigenere(String, String): String |
+| + encryptSubstitution(String, String):    |
+|                                    String |
+| + decryptSubstitution(String, String):    |
+|                                    String |
++-------------------------------------------+
+
++-------------------------------------------+
+|                  Menu                     |
++-------------------------------------------+
+| + main(String[]): void                    |
++-------------------------------------------+
+
++-------------------------------------------+
+|                  Main                     |
++-------------------------------------------+
+| + main(String[]): void                    |
++-------------------------------------------+
+
+```
 ## Skills Developed
 
 - Programming in Java.
@@ -79,4 +202,4 @@ globalConverter/
 
 ## Conclusion
 
-This project is an opportunity to practice programming skils and learn new techniques.
+This project is an opportunity to practice programming skills and learn new techniques.
